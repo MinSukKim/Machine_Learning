@@ -14,8 +14,10 @@ We use already labeled data set by MFCC, this project is focused on the classifi
 
 # Technologies
 Python 2.7
+
 Numpy 1.16.5
 
+Sklearn
 # How to lunch
 
 # Sources
