@@ -1,6 +1,9 @@
 import csv
 import numpy as np
 
+# Classification Library
+from sklearn import tree
+
 # This labels are species, genus and families.
 label_species = ['AdenomeraAndre', 'AdenomeraHylaedactylus', 'Ameeregatrivittata', 'HylaMinuta', 'HypsiboasCinerascens',
                  'HypsiboasCordobae',
@@ -16,8 +19,8 @@ def load_data():
         reader = csv.reader(file, delimiter=',')
 
         label_s = []  # y data
-        label_g = []
-        label_f = []
+        label_g = []  # y data
+        label_f = []  # y data
         record = []  # x data
 
         for i, row in enumerate(reader):
@@ -37,9 +40,26 @@ def load_data():
         label_f).astype(int)
 
 
-if __name__ == "__main__":
-    # Load data from csv file
-    data = load_data()
+# Decision Tree
+def decision_tree(data, y1, y2, y3, p):
+    dt = tree.DecisionTreeClassifier()
 
-    # Data checking
-    # print(data[1])
+    # Training decision tree with data and label
+    dt.fit(data, y1)
+
+    # dt.predict(p)
+    # t = dt.tree_
+    # print(t.impurity)
+
+if __name__ == "__main__":
+    # Load data from csv file, X is data, Ys are labels
+    X, Y1, Y2, Y3 = load_data()
+    # print(X)
+
+    # Sample Data checking
+    predictData = [[1, 0.152936298, -0.105585903, 0.200721915, 0.317201062, 0.880763853, 0.100944641, -0.150062605,
+                   -0.171127632, 0.777776436, 0.188654146, 0.075621723, 0.156435925, 0.082245115, 0.135752042,
+                   0.024016645, 0.108351107, 0.077622521, 0.000567802, 0.057683975, 0.118680135, 0.014038446
+                   ]]
+
+    decision_tree(X, Y1, Y2, Y3, predictData)
