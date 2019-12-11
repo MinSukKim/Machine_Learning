@@ -7,6 +7,8 @@ from sklearn import tree
 from sklearn.model_selection import train_test_split as split
 
 # This labels are species, genus and families.
+from decisiontree import decision_tree_new
+
 label_species = ['AdenomeraAndre', 'AdenomeraHylaedactylus', 'Ameeregatrivittata', 'HylaMinuta', 'HypsiboasCinerascens',
                  'HypsiboasCordobae',
                  'LeptodactylusFuscus', 'OsteocephalusOophagus', 'Rhinellagranulosa', 'ScinaxRuber']
@@ -39,7 +41,7 @@ def load_data():
                 label_f.append(label_families.index(row[-4]))
 
     return np.array(record).astype(float), np.array(label_s).astype(int), np.array(label_g).astype(int), np.array(
-        label_f).astype(int)
+        label_f).astype(int), record
 
 
 # Decision Tree
@@ -64,7 +66,7 @@ def k_split(x, y1, y2, y3):
 
 if __name__ == "__main__":
     # Load data from csv file, X is data, Ys are labels
-    X, Y1, Y2, Y3 = load_data()
+    X, Y1, Y2, Y3, record = load_data()
     # print(X)
 
     # Sample Data checking
@@ -73,5 +75,7 @@ if __name__ == "__main__":
                     0.024016645, 0.108351107, 0.077622521, 0.000567802, 0.057683975, 0.118680135, 0.014038446
                     ]]
 
-    decision_tree(X, Y1, Y2, Y3, predictData)
+    #decision_tree(X, Y1, Y2, Y3, predictData)
     k_split(X, Y1, Y2, Y3)
+    decision_tree_new(record, X, Y1, Y2, Y3, predictData)
+
