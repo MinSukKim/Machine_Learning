@@ -18,12 +18,11 @@ def decision_tree_new(x_train, x_test, y_train, y_test, feature_names):
     # Train Decision Tree Classifer
     clfs = clfs.fit(x_train, y_train)
 
-
     # Predict the response for test dataset
     ys_pred = clfs.predict(x_test)
-    print(ys_pred)
+    # print(ys_pred)
     # Model Accuracy, how often is the classifier correct?
-    print("Accuracy: >>", metrics.accuracy_score(y_test, ys_pred))
+    print("Decision Tree Accuracy: >>", metrics.accuracy_score(y_test, ys_pred))
 
     # dot_datas = StringIO()
     #

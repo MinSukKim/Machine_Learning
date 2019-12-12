@@ -1,18 +1,15 @@
 import csv
 import numpy as np
 
-# Classification Library
-from sklearn import tree
-
 # Data split function
 from sklearn.model_selection import train_test_split as split
 
-# This labels are species, genus and families.
+# Different libraries for different algorithms
 from decisiontree import decision_tree_new
+from randomForest import random_Forest
 
-# Random Forest library
-from sklearn.ensemble import RandomForestClassifier
 
+# This labels are species, genus and families.
 label_species = ['AdenomeraAndre', 'AdenomeraHylaedactylus', 'Ameeregatrivittata', 'HylaMinuta', 'HypsiboasCinerascens',
                  'HypsiboasCordobae',
                  'LeptodactylusFuscus', 'OsteocephalusOophagus', 'Rhinellagranulosa', 'ScinaxRuber']
@@ -51,10 +48,10 @@ def load_data():
         label_f).astype(int)
 
 
-def data_split(x, y1, y2, y3):
+def data_split(x, y, i):
     # split x and y1 data, test size = ratio(default = 0.25), train_size = the remaining data
     # random default state 123
-    x_train, x_test, y_train, y_test = split(x, y1, test_size=0.4, random_state=123)
+    x_train, x_test, y_train, y_test = split(x, y, test_size=i, random_state=123)
 
     return x_train, x_test, y_train, y_test
 
@@ -62,7 +59,18 @@ def data_split(x, y1, y2, y3):
 if __name__ == "__main__":
     # Load data from csv file, X is data, Ys are labels
     X, Y1, Y2, Y3 = load_data()
+    Y = [Y1, Y2, Y3]
 
-    x_train, x_test, y_train, y_test = data_split(X, Y1, Y2, Y3)
-    decision_tree_new(x_train, x_test, y_train, y_test, feature_names)
+    # test data 0.2, 0.3, 0.4%
+    data_ratio = [0.2, 0.3, 0.4]
+    i = len(data_ratio)
+
+    while i > 0 :
+        print("Ratio: ", data_ratio[i-1])
+        x_train, x_test, y_train, y_test = data_split(X, Y[i-1], data_ratio[i-1])
+
+        decision_tree_new(x_train, x_test, y_train, y_test, feature_names)
+        random_Forest(x_train, x_test, y_train, y_test, feature_names, X, Y[i-1])
+        ###K-NN Nearest Algorithm will be here###
+        i-=1
 
