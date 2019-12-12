@@ -6,6 +6,7 @@ from sklearn.model_selection import train_test_split as split
 
 # Different libraries for different algorithms
 from decisiontree import decision_tree_new
+from kNearestNeighbor import k_nearest_neighbor_new
 from randomForest import random_Forest
 
 
@@ -71,6 +72,7 @@ if __name__ == "__main__":
 
         decision_tree_new(x_train, x_test, y_train, y_test, feature_names)
         random_Forest(x_train, x_test, y_train, y_test, feature_names, X, Y[i-1])
+        k_nearest_neighbor_new(x_train, x_test, y_train, y_test, feature_names)
         ###K-NN Nearest Algorithm will be here###
         i-=1
 
