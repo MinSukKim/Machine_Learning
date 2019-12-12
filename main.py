@@ -17,6 +17,7 @@ label_species = ['AdenomeraAndre', 'AdenomeraHylaedactylus', 'Ameeregatrivittata
 label_genus = ['Adenomera', 'Ameerega', 'Dendropsophus', 'Hypsiboas', 'Leptodactylus', 'Osteocephalus', 'Rhinella',
                'Scinax']
 label_families = ['Bufonidae', 'Dendrobatidae', 'Hylidae', 'Leptodactylidae']
+
 feature_names = ['MFCCs_ 1', 'MFCCs_ 2', 'MFCCs_ 3', 'MFCCs_ 4', 'MFCCs_ 5', 'MFCCs_ 6', 'MFCCs_ 7', 'MFCCs_ 8',
                  'MFCCs_ 9', 'MFCCs_10', 'MFCCs_11', 'MFCCs_12', 'MFCCs_13', 'MFCCs_14', 'MFCCs_15', 'MFCCs_16',
                  'MFCCs_17', 'MFCCs_18', 'MFCCs_19', 'MFCCs_20', 'MFCCs_21', 'MFCCs_22']
@@ -39,14 +40,14 @@ def load_data():
                 record.append(row[:-4])
 
                 # Save species which is labels for this classification
-                label_s.append(label_species.index(row[-2]))
+                label_s.append(row[-2])
                 # Save genus which is labels for this classification
-                label_g.append(label_genus.index(row[-3]))
+                label_g.append(row[-3])
                 # Save families which is labels for this classification
-                label_f.append(label_families.index(row[-4]))
+                label_f.append(row[-4])
 
-    return np.array(record).astype(float), np.array(label_s).astype(int), np.array(label_g).astype(int), np.array(
-        label_f).astype(int)
+    return np.array(record).astype(float), np.array(label_s).astype(str), np.array(label_g).astype(str), np.array(
+        label_f).astype(str)
 
 
 def data_split(x, y, i):
@@ -55,6 +56,37 @@ def data_split(x, y, i):
     x_train, x_test, y_train, y_test = split(x, y, test_size=i, random_state=123)
 
     return x_train, x_test, y_train, y_test
+
+
+def inconsistency(species, genus, families):
+    return species == label_species[1] \
+           or species == label_species[0] \
+           and genus == label_genus[0] \
+           and families == label_families[3] \
+           or species == label_species[6] \
+           and genus == label_genus[4] \
+           and families == label_families[3] \
+           or species == label_species[9] \
+           and genus == label_genus[7] \
+           and families == label_families[2] \
+           or species == label_species[4] \
+           and genus == label_genus[3] \
+           and families == label_families[2] \
+           or species == label_species[5] \
+           and genus == label_genus[3] \
+           and families == label_families[2] \
+           or species == label_species[7] \
+           and genus == label_genus[5] \
+           and families == label_families[2] \
+           or species == label_species[3] \
+           and genus == label_genus[2] \
+           and families == label_families[2] \
+           or species == label_species[8] \
+           and genus == label_genus[6] \
+           and families == label_families[0] \
+           or species == label_species[2] \
+           and genus == label_genus[1] \
+           and families == label_families[1]
 
 
 if __name__ == "__main__":
@@ -66,13 +98,13 @@ if __name__ == "__main__":
     data_ratio = [0.2, 0.3, 0.4]
     i = len(data_ratio)
 
-    while i > 0 :
+    while i > 0:
         print("Ratio: ", data_ratio[i-1])
         x_train, x_test, y_train, y_test = data_split(X, Y[i-1], data_ratio[i-1])
 
         decision_tree_new(x_train, x_test, y_train, y_test, feature_names)
-        random_Forest(x_train, x_test, y_train, y_test, feature_names, X, Y[i-1])
+        random_Forest(x_train, x_test, y_train, y_test, feature_names)
         k_nearest_neighbor_new(x_train, x_test, y_train, y_test, feature_names)
-        ###K-NN Nearest Algorithm will be here###
+
         i-=1
 
