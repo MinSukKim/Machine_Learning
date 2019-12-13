@@ -1,7 +1,12 @@
 # Load libraries
 
+import pydotplus
+from IPython.display import Image
 from sklearn import metrics  # Import scikit-learn metrics module for accuracy calculation
-from sklearn.tree import DecisionTreeClassifier
+from sklearn.externals.six import StringIO
+from sklearn.tree import DecisionTreeClassifier, export_graphviz
+
+
 
 criterion = "entropy"
 # criterion = "gini"
@@ -10,7 +15,7 @@ max_depth = 3
 
 
 # Decision Tree
-def decision_tree_new(x_train, x_test, y_train, y_test, label_species):
+def decision_tree_new(x_train, x_test, y_train, y_test, label_species,pos):
     # Split dataset into training set and test set
     # Create Decision Tree classifer object
     # clf = DecisionTreeClassifier()
@@ -35,18 +40,18 @@ def decision_tree_new(x_train, x_test, y_train, y_test, label_species):
     score = clfs.score(x_test, y_test)
 
     print("Score  >>", score)
-    #
-    # dot_data = StringIO()
-    #
-    # export_graphviz(clfs, out_file=dot_data,
-    #                 filled=True, rounded=True, node_ids='True', proportion='True',
-    #                 special_characters=True, class_names=label_species,
-    #                 feature_names=label_species)
-    # # special_characters=True, class_names=map(str, recordNum),
-    #
-    # # data show
-    # graphs = pydotplus.graph_from_dot_data(dot_data.getvalue())
-    # graphs.write_png('decision_out.png')
-    # Image(graphs.create_png())create_png
+
+    dot_data = StringIO()
+
+    export_graphviz(clfs, out_file=dot_data,
+                    filled=True, rounded=True, node_ids='True', proportion='True',
+                    special_characters=True, class_names=label_species,
+                    feature_names=label_species)
+    # special_characters=True, class_names=map(str, recordNum),
+
+    # data show
+    graphs = pydotplus.graph_from_dot_data(dot_data.getvalue())
+    graphs.write_png(str(pos)+'decision_out.png')
+    Image(graphs.create_png())
 
     print("------------------------Decision Tree End--------------------------------")

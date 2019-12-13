@@ -80,7 +80,7 @@ if __name__ == "__main__":
         print("Ratio: ", data_ratio[i-1])
         x_train, x_test, y_train, y_test = data_split(X, Y[i-1], data_ratio[i-1])
 
-        decision_tree_new(x_train, x_test, y_train, y_test, feature_names)
+        decision_tree_new(x_train, x_test, y_train, y_test, feature_names,i)
         random_Forest(x_train, x_test, y_train, y_test, feature_names)
         k_nearest_neighbor_new(x_train, x_test, y_train, y_test, feature_names)
 
