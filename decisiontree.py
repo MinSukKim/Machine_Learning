@@ -22,7 +22,7 @@ def decision_tree_new(x_train, x_test, y_train, y_test, feature_names,pos):
     clfg = DecisionTreeClassifier(criterion=criterion, max_depth=max_depth)
     clff = DecisionTreeClassifier(criterion=criterion, max_depth=max_depth)
 
-    print("------------------------Decision Tree--------------------------------")
+    # print("------------------------Decision Tree--------------------------------")
 
     # Train Decision Tree Classifer
     cls_train = clfs.fit(x_train[0], y_train[0])
@@ -35,9 +35,9 @@ def decision_tree_new(x_train, x_test, y_train, y_test, feature_names,pos):
     yg_pred = clg_train.predict(x_test[1])
     yf_pred = clf_train.predict(x_test[2])
 
-    print("Pre:  spec >>", ys_pred)
-    print("Pre:  gen >>", yg_pred)
-    print("Pre:  fam >>", yf_pred)
+    # print("Pre:  spec >>", ys_pred)
+    # print("Pre:  gen >>", yg_pred)
+    # print("Pre:  fam >>", yf_pred)
 
     Y_pred = [ys_pred, yg_pred, yf_pred]
 
@@ -71,16 +71,16 @@ def decision_tree_new(x_train, x_test, y_train, y_test, feature_names,pos):
     # special_characters=True, class_names=map(str, recordNum),
 
     # data show
-    graphs = pydotplus.graph_from_dot_data(dot_datas.getvalue())
-    graphs.write_png(str(pos)+'decision_spe_out.png')
-    Image(graphs.create_png())
-    graphf = pydotplus.graph_from_dot_data(dot_datag.getvalue())
-    graphf.write_png(str(pos)+'decision_gen_out.png')
-    Image(graphf.create_png())
-    graphg = pydotplus.graph_from_dot_data(dot_dataf.getvalue())
-    graphg.write_png(str(pos)+'decision_fam_out.png')
-    Image(graphg.create_png())
-    print("------------------------Decision Tree End--------------------------------")
+    # graphs = pydotplus.graph_from_dot_data(dot_datas.getvalue())
+    # graphs.write_png(str(pos)+'decision_spe_out.png')
+    # Image(graphs.create_png())
+    # graphf = pydotplus.graph_from_dot_data(dot_datag.getvalue())
+    # graphf.write_png(str(pos)+'decision_gen_out.png')
+    # Image(graphf.create_png())
+    # graphg = pydotplus.graph_from_dot_data(dot_dataf.getvalue())
+    # graphg.write_png(str(pos)+'decision_fam_out.png')
+    # Image(graphg.create_png())
+    # print("------------------------Decision Tree End--------------------------------")
 
     return Y_pred
 
