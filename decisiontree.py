@@ -12,10 +12,12 @@ criterion = "entropy"
 # criterion = "gini"
 min_samples_split = 30
 max_depth = 3
-
+label_species = ['AdenomeraAndre', 'AdenomeraHylaedactylus', 'Ameeregatrivittata', 'HylaMinuta', 'HypsiboasCinerascens',
+                 'HypsiboasCordobae',
+                 'LeptodactylusFuscus', 'OsteocephalusOophagus', 'Rhinellagranulosa', 'ScinaxRuber']
 
 # Decision Tree
-def decision_tree_new(x_train, x_test, y_train, y_test, label_species,pos):
+def decision_tree_new(x_train, x_test, y_train, y_test, feature_names,pos):
     # Split dataset into training set and test set
     # Create Decision Tree classifer object
     # clf = DecisionTreeClassifier()
@@ -37,9 +39,9 @@ def decision_tree_new(x_train, x_test, y_train, y_test, label_species,pos):
     print("Accuracy:  >>", metrics.accuracy_score(y_test, y_pred) * 100)
 
     # The score method returns the accuracy of the model
-    score = clfs.score(x_test, y_test)
-
-    print("Score  >>", score)
+    # score = clfs.score(x_test, y_test)
+    #
+    # print("Score  >>", score)
 
     dot_data = StringIO()
 
@@ -53,5 +55,8 @@ def decision_tree_new(x_train, x_test, y_train, y_test, label_species,pos):
     graphs = pydotplus.graph_from_dot_data(dot_data.getvalue())
     graphs.write_png(str(pos)+'decision_out.png')
     Image(graphs.create_png())
+
+
+
 
     print("------------------------Decision Tree End--------------------------------")
