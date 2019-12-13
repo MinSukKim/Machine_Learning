@@ -94,7 +94,12 @@ if __name__ == "__main__":
         print("Ratio: ", data_ratio[i - 1])
         x_train, x_test, y_train, y_test = data_split(X, Y, data_ratio[i - 1])
 
-        # decision_tree_new(x_train, x_test, y_train, y_test, feature_names, i)
+        result_decision_tree = decision_tree_new(x_train, x_test, y_train, y_test, feature_names, i)
+
+        for j in range(0, len(result_decision_tree)):
+            if not inconsistency(result_decision_tree[0][j], result_decision_tree[1][j], result_decision_tree[2][j]):
+                print(j, result_decision_tree[0][j], result_decision_tree[1][j], result_decision_tree[2][j])
+
 
         result = random_Forest(x_train, x_test, y_train, y_test, feature_names)
 
