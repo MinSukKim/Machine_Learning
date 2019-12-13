@@ -8,13 +8,10 @@ from sklearn.tree import DecisionTreeClassifier, export_graphviz
 
 
 
-criterion = "entropy"
-# criterion = "gini"
+#criterion = "entropy"
+criterion = "gini"
 min_samples_split = 30
 max_depth = 3
-label_species = ['AdenomeraAndre', 'AdenomeraHylaedactylus', 'Ameeregatrivittata', 'HylaMinuta', 'HypsiboasCinerascens',
-                 'HypsiboasCordobae',
-                 'LeptodactylusFuscus', 'OsteocephalusOophagus', 'Rhinellagranulosa', 'ScinaxRuber']
 
 # Decision Tree
 def decision_tree_new(x_train, x_test, y_train, y_test, feature_names,pos):
@@ -22,41 +19,68 @@ def decision_tree_new(x_train, x_test, y_train, y_test, feature_names,pos):
     # Create Decision Tree classifer object
     # clf = DecisionTreeClassifier()
     clfs = DecisionTreeClassifier(criterion=criterion, max_depth=max_depth)
+    clfg = DecisionTreeClassifier(criterion=criterion, max_depth=max_depth)
+    clff = DecisionTreeClassifier(criterion=criterion, max_depth=max_depth)
 
     print("------------------------Decision Tree--------------------------------")
 
     # Train Decision Tree Classifer
-    clf_train = clfs.fit(x_train, y_train)
-
-    # Predict the response for test dataset
-    y_pred = clf_train.predict(x_test)
-
-    print("Predicted test data: ", y_pred)
+    cls_train = clfs.fit(x_train[0], y_train[0])
+    clg_train = clfg.fit(x_train[1], y_train[1])
+    clf_train = clff.fit(x_train[2], y_train[2])
 
     # predicting a new value
 
+    ys_pred = cls_train.predict(x_test[0])
+    yg_pred = clg_train.predict(x_test[1])
+    yf_pred = clf_train.predict(x_test[2])
+
+    print("Pre:  spec >>", ys_pred)
+    print("Pre:  gen >>", yg_pred)
+    print("Pre:  fam >>", yf_pred)
+
+    Y_pred = [ys_pred, yg_pred, yf_pred]
+
+    i = 0
     # Model Accuracy, how often is the classifier correct?
-    print("Accuracy:  >>", metrics.accuracy_score(y_test, y_pred) * 100)
+    while i < 3:
+        print("DecisionTree Accuracy: >>", metrics.accuracy_score(y_test[i], Y_pred[i]))
+        i += 1
 
     # The score method returns the accuracy of the model
     # score = clfs.score(x_test, y_test)
     #
     # print("Score  >>", score)
 
-    dot_data = StringIO()
+    dot_datas = StringIO()
+    dot_datag = StringIO()
+    dot_dataf = StringIO()
 
-    export_graphviz(clfs, out_file=dot_data,
+    export_graphviz(clfs, out_file=dot_datas,
                     filled=True, rounded=True, node_ids='True', proportion='True',
-                    special_characters=True, class_names=label_species,
-                    feature_names=label_species)
+                    special_characters=True,
+                    feature_names=feature_names)
+    export_graphviz(clfg, out_file=dot_datag,
+                    filled=True, rounded=True, node_ids='True', proportion='True',
+                    special_characters=True,
+                    feature_names=feature_names)
+    export_graphviz(clff, out_file=dot_dataf,
+                    filled=True, rounded=True, node_ids='True', proportion='True',
+                    special_characters=True,
+                    feature_names=feature_names)
     # special_characters=True, class_names=map(str, recordNum),
 
     # data show
-    graphs = pydotplus.graph_from_dot_data(dot_data.getvalue())
-    graphs.write_png(str(pos)+'decision_out.png')
+    graphs = pydotplus.graph_from_dot_data(dot_datas.getvalue())
+    graphs.write_png(str(pos)+'decision_spe_out.png')
     Image(graphs.create_png())
-
-
-
-
+    graphf = pydotplus.graph_from_dot_data(dot_datag.getvalue())
+    graphf.write_png(str(pos)+'decision_gen_out.png')
+    Image(graphf.create_png())
+    graphg = pydotplus.graph_from_dot_data(dot_dataf.getvalue())
+    graphg.write_png(str(pos)+'decision_fam_out.png')
+    Image(graphg.create_png())
     print("------------------------Decision Tree End--------------------------------")
+
+    return Y_pred
+

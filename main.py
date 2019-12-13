@@ -92,15 +92,24 @@ if __name__ == "__main__":
         print("Ratio: ", data_ratio[i - 1])
         x_train, x_test, y_train, y_test = data_split(X, Y, data_ratio[i - 1])
 
-        decision_tree_new(x_train, x_test, y_train, y_test, feature_names, i)
+        decisiontree_results = decision_tree_new(x_train, x_test, y_train, y_test, feature_names, i)
+        print("result decisiontree_results: ", decisiontree_results)
 
-        result = random_Forest(x_train, x_test, y_train, y_test, feature_names)
+        for dt in range(0, len(decisiontree_results)):
+            if not inconsistency(decisiontree_results[0][dt], decisiontree_results[1][dt], decisiontree_results[2][dt]):
+                print(dt, decisiontree_results[0][dt], decisiontree_results[1][dt], decisiontree_results[2][dt])
+            dt += 1
 
-        for i in range(0, len(result)):
-            if not inconsistency(result[0][i], result[1][i], result[2][i]):
-                print(i, result[0][i], result[1][i], result[2][i])
-            i += 1
 
-        k_nearest_neighbor_new(x_train, x_test, y_train, y_test, feature_names)
+        # result = random_Forest(x_train, x_test, y_train, y_test, feature_names)
+        # print("result : ", result)
+        #
+        # for i in range(0, len(result)):
+        #     if not inconsistency(result[0][i], result[1][i], result[2][i]):
+        #         print(i, result[0][i], result[1][i], result[2][i])
+        #     i += 1
+
+
+        # k_nearest_neighbor_new(x_train, x_test, y_train, y_test, feature_names)
 
         i -= 1
