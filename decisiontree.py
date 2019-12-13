@@ -1,36 +1,52 @@
-# from sklearn.externals.six import StringIO
-# from IPython.display import Image
-# import pydotplus
+# Load libraries
 
-# metrics: accuracy calculation
-from sklearn import metrics
+from sklearn import metrics  # Import scikit-learn metrics module for accuracy calculation
+from sklearn.tree import DecisionTreeClassifier
 
-# This labels are species, genus and families.
-from sklearn.tree import DecisionTreeClassifier, export_graphviz
-
-
+criterion = "entropy"
+# criterion = "gini"
+min_samples_split = 30
+max_depth = 3
 
 
 # Decision Tree
-def decision_tree_new(x_train, x_test, y_train, y_test, feature_names):
-    clfs = DecisionTreeClassifier(criterion="entropy", max_depth=3)
+def decision_tree_new(x_train, x_test, y_train, y_test, label_species):
+    # Split dataset into training set and test set
+    # Create Decision Tree classifer object
+    # clf = DecisionTreeClassifier()
+    clfs = DecisionTreeClassifier(criterion=criterion, max_depth=max_depth)
+
+    print("------------------------Decision Tree--------------------------------")
 
     # Train Decision Tree Classifer
-    clfs = clfs.fit(x_train, y_train)
+    clf_train = clfs.fit(x_train, y_train)
 
     # Predict the response for test dataset
-    ys_pred = clfs.predict(x_test)
-    # print(ys_pred)
-    # Model Accuracy, how often is the classifier correct?
-    print("Decision Tree Accuracy: >>", metrics.accuracy_score(y_test, ys_pred))
+    y_pred = clf_train.predict(x_test)
 
-    # dot_datas = StringIO()
+    print("Predicted test data: ", y_pred)
+
+    # predicting a new value
+
+    # Model Accuracy, how often is the classifier correct?
+    print("Accuracy:  >>", metrics.accuracy_score(y_test, y_pred) * 100)
+
+    # The score method returns the accuracy of the model
+    score = clfs.score(x_test, y_test)
+
+    print("Score  >>", score)
     #
-    # export_graphviz(clfs, out_file=dot_datas,
-    #                 filled=True, rounded=True,
-    #                 special_characters=True,
-    #                 feature_names=feature_names)
+    # dot_data = StringIO()
     #
-    # graphs = pydotplus.graph_from_dot_data(dot_datas.getvalue())
-    # graphs.write_png('decisionTree.png')
-    # Image(graphs.create_png())
+    # export_graphviz(clfs, out_file=dot_data,
+    #                 filled=True, rounded=True, node_ids='True', proportion='True',
+    #                 special_characters=True, class_names=label_species,
+    #                 feature_names=label_species)
+    # # special_characters=True, class_names=map(str, recordNum),
+    #
+    # # data show
+    # graphs = pydotplus.graph_from_dot_data(dot_data.getvalue())
+    # graphs.write_png('decision_out.png')
+    # Image(graphs.create_png())create_png
+
+    print("------------------------Decision Tree End--------------------------------")
