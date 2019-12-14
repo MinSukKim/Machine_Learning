@@ -91,7 +91,7 @@ if __name__ == "__main__":
     i = len(data_ratio)
 
     while i > 0:
-        print("Ratio: ", data_ratio[i - 1],'-----------------')
+        print("Ratio: ", data_ratio[i - 1], '-----------------')
         x_train, x_test, y_train, y_test = data_split(X, Y, data_ratio[i - 1])
 
         result_decision_tree = decision_tree_new(x_train, x_test, y_train, y_test, feature_names, i)
@@ -106,6 +106,13 @@ if __name__ == "__main__":
             if not inconsistency(result[0][j], result[1][j], result[2][j]):
                 print(j, result[0][j], result[1][j], result[2][j])
 
-        # k_nearest_neighbor_new(x_train, x_test, y_train, y_test, feature_names)
+        result_k_nearest_neighbor = k_nearest_neighbor_new(x_train, x_test, y_train, y_test, feature_names)
 
+        for j in range(0, len(result_k_nearest_neighbor[0])):
+            if not inconsistency(int(result_k_nearest_neighbor[2][j]),
+                             int(result_k_nearest_neighbor[1][j]),
+                             int(result_k_nearest_neighbor[0][j])):
+                print(j, result_k_nearest_neighbor[2][j],
+                      result_k_nearest_neighbor[1][j],
+                      result_k_nearest_neighbor[0][j])
         i -= 1
