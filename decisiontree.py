@@ -8,8 +8,8 @@ from sklearn.tree import DecisionTreeClassifier, export_graphviz
 
 
 
-#criterion = "entropy"
-criterion = "gini"
+criterion = "entropy"
+#criterion = "gini"
 min_samples_split = 30
 max_depth = 3
 
@@ -17,10 +17,10 @@ max_depth = 3
 def decision_tree_new(x_train, x_test, y_train, y_test, feature_names,pos):
     # Split dataset into training set and test set
     # Create Decision Tree classifer object
-    # clf = DecisionTreeClassifier()
-    clfs = DecisionTreeClassifier(criterion=criterion, max_depth=max_depth)
-    clfg = DecisionTreeClassifier(criterion=criterion, max_depth=max_depth)
-    clff = DecisionTreeClassifier(criterion=criterion, max_depth=max_depth)
+    # clf = DecisionTreeClassifier(criterion=criterion, max_depth=max_depth)
+    clfs = DecisionTreeClassifier()
+    clfg = DecisionTreeClassifier()
+    clff = DecisionTreeClassifier()
 
     # print("------------------------Decision Tree--------------------------------")
 
