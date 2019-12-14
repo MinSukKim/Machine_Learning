@@ -5,8 +5,6 @@ from sklearn import metrics
 from sklearn.neighbors import KNeighborsClassifier
 from sklearn.metrics import classification_report, confusion_matrix
 
-from relationCheck import inconsistency, inconsistencyText
-
 
 def k_nearest_neighbor_new(x_train, x_test, y_train, y_test, feature_names):
 
@@ -14,15 +12,15 @@ def k_nearest_neighbor_new(x_train, x_test, y_train, y_test, feature_names):
     classifierG = KNeighborsClassifier(n_neighbors=5)
     classifierF = KNeighborsClassifier(n_neighbors=5)
 
-    classifierS.fit(x_train[0], y_train[2])
+    classifierS.fit(x_train[2], y_train[2])
     classifierG.fit(x_train[1], y_train[1])
-    classifierF.fit(x_train[2], y_train[0])
+    classifierF.fit(x_train[0], y_train[0])
 
-    y_preds = classifierF.predict(x_test[2])
+    y_predf = classifierF.predict(x_test[0])
     y_predg = classifierG.predict(x_test[1])
-    y_predf = classifierS.predict(x_test[0])
+    y_preds = classifierS.predict(x_test[2])
 
-    Y_pred = [y_predf, y_predg, y_preds]
+    Y_pred = [y_preds, y_predg, y_predf]
     # print(confusion_matrix(y_test, y_pred))
     # print(classification_report(y_test, y_pred))
     i = 0

@@ -1,5 +1,5 @@
 
-def inconsistency(species, genus, families):
+def no_inconsistency(species, genus, families):
     return species == 1 \
            and genus == 0 \
            and families == 3 \

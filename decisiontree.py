@@ -25,15 +25,15 @@ def decision_tree_new(x_train, x_test, y_train, y_test, feature_names,pos):
     # print("------------------------Decision Tree--------------------------------")
 
     # Train Decision Tree Classifer
-    cls_train = clfs.fit(x_train[0], y_train[0])
+    cls_train = clfs.fit(x_train[2], y_train[2])
     clg_train = clfg.fit(x_train[1], y_train[1])
-    clf_train = clff.fit(x_train[2], y_train[2])
+    clf_train = clff.fit(x_train[0], y_train[0])
 
     # predicting a new value
 
-    ys_pred = cls_train.predict(x_test[0])
+    ys_pred = cls_train.predict(x_test[2])
     yg_pred = clg_train.predict(x_test[1])
-    yf_pred = clf_train.predict(x_test[2])
+    yf_pred = clf_train.predict(x_test[0])
 
     # print("Pre:  spec >>", ys_pred)
     # print("Pre:  gen >>", yg_pred)
@@ -44,7 +44,7 @@ def decision_tree_new(x_train, x_test, y_train, y_test, feature_names,pos):
     i = 0
     # Model Accuracy, how often is the classifier correct?
     while i < 3:
-        print("DecisionTree Accuracy: >>", metrics.accuracy_score(y_test[i], Y_pred[i]))
+        print("DecisionTree Accuracy: >>", metrics.accuracy_score(y_test[i], Y_pred[2-i]))
         i += 1
 
     # The score method returns the accuracy of the model
