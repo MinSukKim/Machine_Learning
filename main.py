@@ -97,23 +97,26 @@ if __name__ == "__main__":
         result_decision_tree = decision_tree_new(x_train, x_test, y_train, y_test, feature_names, i)
 
         for j in range(0, len(result_decision_tree[0])):
-            if not no_inconsistency(int(result_decision_tree[2][j]), int(result_decision_tree[1][j]),
-                                    int(result_decision_tree[0][j])):
-                print(j, result_decision_tree[2][j], result_decision_tree[1][j], result_decision_tree[0][j])
+            if not no_inconsistency(int(result_decision_tree[0][j]), int(result_decision_tree[1][j]),
+                                    int(result_decision_tree[2][j])):
+                print(j, result_decision_tree[0][j], result_decision_tree[1][j], result_decision_tree[2][j])
+                print("correct would be ", j, y_train[0][j], y_train[1][j], y_train[2][j])
 
         result = random_Forest(x_train, x_test, y_train, y_test, feature_names)
 
         for j in range(0, len(result[0])):
-            if not no_inconsistency(int(result[2][j]), int(result[1][j]), int(result[0][j])):
-                print(j, result[2][j], result[1][j], result[0][j])
+            if not no_inconsistency(int(result[0][j]), int(result[1][j]), int(result[2][j])):
+                print(j, result[1][j], result[1][j], result[2][j])
+                print("correct would be ", j, y_train[0][j], y_train[1][j], y_train[2][j])
 
         result_k_nearest_neighbor = k_nearest_neighbor_new(x_train, x_test, y_train, y_test, feature_names)
 
         for j in range(0, len(result_k_nearest_neighbor[0])):
-            if not no_inconsistency(int(result_k_nearest_neighbor[2][j]),
+            if not no_inconsistency(int(result_k_nearest_neighbor[0][j]),
                                     int(result_k_nearest_neighbor[1][j]),
-                                    int(result_k_nearest_neighbor[0][j])):
-                print(j, result_k_nearest_neighbor[2][j],
+                                    int(result_k_nearest_neighbor[2][j])):
+                print(j, result_k_nearest_neighbor[0][j],
                       result_k_nearest_neighbor[1][j],
-                      result_k_nearest_neighbor[0][j])
+                      result_k_nearest_neighbor[2][j])
+                print("correct would be ", j, y_train[0][j], y_train[1][j], y_train[2][j])
         i -= 1

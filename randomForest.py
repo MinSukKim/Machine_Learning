@@ -18,22 +18,22 @@ def random_Forest(x_train, x_test, y_train, y_test, feature_names):
     rftg = RandomForestClassifier(n_estimators=10, random_state=0)
     rftf = RandomForestClassifier(n_estimators=10, random_state=0)
 
-    rfts = rfts.fit(x_train[2], y_train[2])
+    rfts = rfts.fit(x_train[0], y_train[0])
     rftg = rftg.fit(x_train[1], y_train[1])
-    rftf = rftf.fit(x_train[0], y_train[0])
+    rftf = rftf.fit(x_train[2], y_train[2])
 
 
     # Predict the response for test dataset
-    y_preds = rfts.predict(x_test[2])
+    y_preds = rfts.predict(x_test[0])
     y_predg = rftg.predict(x_test[1])
-    y_predf = rftf.predict(x_test[0])
+    y_predf = rftf.predict(x_test[2])
 
     Y_pred=[y_preds, y_predg, y_predf]
 
     i = 0
     # Model Accuracy, how often is the classifier correct?
     while i < 3:
-        print("Random Forest Accuracy: >>", metrics.accuracy_score(y_test[i], Y_pred[2-i]))
+        print("Random Forest Accuracy: >>", metrics.accuracy_score(y_test[i], Y_pred[i]))
         i+=1
 
     # test = set(Y_pred)
