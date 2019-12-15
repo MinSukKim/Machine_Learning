@@ -6,9 +6,9 @@ import random
 from sklearn.model_selection import train_test_split as split
 
 # Different libraries for different algorithms
-from decisiontree import decision_tree_new
-from kNearestNeighbor import k_nearest_neighbor_new
-from randomForest import random_Forest
+from decisiontree import decision_tree_new, decision_tree_new_hierarchy
+from kNearestNeighbor import k_nearest_neighbor_new, k_nearest_neighbor_new_hierarchy
+from randomForest import random_Forest, random_Forest_hierarchy
 
 # This labels are species, genus and families.
 from relationCheck import no_inconsistency
@@ -94,29 +94,73 @@ if __name__ == "__main__":
         print("Ratio: ", data_ratio[i - 1], '-----------------')
         x_train, x_test, y_train, y_test = data_split(X, Y, data_ratio[i - 1])
 
-        result_decision_tree = decision_tree_new(x_train, x_test, y_train, y_test, feature_names, i)
+    #   result_decision_tree = decision_tree_new(x_train, x_test, y_train, y_test, feature_names, i)
+    #   count = 0
+    #   for j in range(0, len(result_decision_tree[0])):
+    #       if not no_inconsistency(int(result_decision_tree[0][j]), int(result_decision_tree[1][j]),
+    #                               int(result_decision_tree[2][j])):
+    #           print(j, result_decision_tree[0][j], result_decision_tree[1][j], result_decision_tree[2][j])
+    #           print("correct would be ", j, y_train[0][j], y_train[1][j], y_train[2][j])
+    #           count += 1
+    #   print("number of inconsistencies:", count, "in ", len(result_decision_tree[0]), "predictions")
+    #   count = 0
 
-        for j in range(0, len(result_decision_tree[0])):
-            if not no_inconsistency(int(result_decision_tree[0][j]), int(result_decision_tree[1][j]),
-                                    int(result_decision_tree[2][j])):
-                print(j, result_decision_tree[0][j], result_decision_tree[1][j], result_decision_tree[2][j])
+    #   result_decision_tree_hierarchy = decision_tree_new_hierarchy(x_train, x_test, y_train, y_test, feature_names, i)
+    #   count = 0
+    #   for j in range(0, len(result_decision_tree[0])):
+    #       if not no_inconsistency(int(result_decision_tree[0][j]), int(result_decision_tree[1][j]),
+    #                               int(result_decision_tree[2][j])):
+    #           print(j, result_decision_tree[0][j], result_decision_tree[1][j], result_decision_tree[2][j])
+    #           print("correct would be ", j, y_train[0][j], y_train[1][j], y_train[2][j])
+    #           count += 1
+    #   print("number of inconsistencies:", count, "in ", len(result_decision_tree[0]), "predictions")
+    #   count = 0
+
+    #   result = random_Forest(x_train, x_test, y_train, y_test, feature_names)
+
+    #   for j in range(0, len(result[0])):
+    #       if not no_inconsistency(int(result[0][j]), int(result[1][j]), int(result[2][j])):
+    #           print(j, result[1][j], result[1][j], result[2][j])
+    #           print("correct would be ", j, y_train[0][j], y_train[1][j], y_train[2][j])
+    #           count += 1
+    #   print("number of inconsistencies:", count, "in ", len(result[0]), "predictions")
+    #   count = 0
+
+    #   result_hierarchy = random_Forest_hierarchy(x_train, x_test, y_train, y_test, feature_names)
+
+    #   for j in range(0, len(result[0])):
+    #       if not no_inconsistency(int(result[0][j]), int(result[1][j]), int(result[2][j])):
+    #           print(j, result[1][j], result[1][j], result[2][j])
+    #           print("correct would be ", j, y_train[0][j], y_train[1][j], y_train[2][j])
+    #           count += 1
+    #   print("number of inconsistencies:", count, "in ", len(result[0]), "predictions")
+     #   count = 0
+
+     #   result_k_nearest_neighbor = k_nearest_neighbor_new(x_train, x_test, y_train, y_test, feature_names)
+
+     #   for j in range(0, len(result_k_nearest_neighbor[0])):
+     #     if not no_inconsistency(int(result_k_nearest_neighbor[0][j]),
+     #                             int(result_k_nearest_neighbor[1][j]),
+     #                             int(result_k_nearest_neighbor[2][j])):
+     #         print(j, result_k_nearest_neighbor[0][j],
+     #               result_k_nearest_neighbor[1][j],
+     #               result_k_nearest_neighbor[2][j])
+     #         print("correct would be ", j, y_train[0][j], y_train[1][j], y_train[2][j])
+     #         count += 1
+     #   print("number of inconsistencies:", count, "in ", len(result_k_nearest_neighbor[0]), "predictions")
+        count = 0
+
+        result_k_nearest_neighbor_hierarchy = k_nearest_neighbor_new_hierarchy(x_train, x_test, y_train, y_test, feature_names)
+
+        for j in range(0, len(result_k_nearest_neighbor_hierarchy[0])):
+            if not no_inconsistency(int(result_k_nearest_neighbor_hierarchy[0][j]),
+                                    int(result_k_nearest_neighbor_hierarchy[1][j]),
+                                    int(result_k_nearest_neighbor_hierarchy[2][j])):
+                print(j, result_k_nearest_neighbor_hierarchy[0][j],
+                      result_k_nearest_neighbor_hierarchy[1][j],
+                      result_k_nearest_neighbor_hierarchy[2][j])
                 print("correct would be ", j, y_train[0][j], y_train[1][j], y_train[2][j])
-
-        result = random_Forest(x_train, x_test, y_train, y_test, feature_names)
-
-        for j in range(0, len(result[0])):
-            if not no_inconsistency(int(result[0][j]), int(result[1][j]), int(result[2][j])):
-                print(j, result[1][j], result[1][j], result[2][j])
-                print("correct would be ", j, y_train[0][j], y_train[1][j], y_train[2][j])
-
-        result_k_nearest_neighbor = k_nearest_neighbor_new(x_train, x_test, y_train, y_test, feature_names)
-
-        for j in range(0, len(result_k_nearest_neighbor[0])):
-            if not no_inconsistency(int(result_k_nearest_neighbor[0][j]),
-                                    int(result_k_nearest_neighbor[1][j]),
-                                    int(result_k_nearest_neighbor[2][j])):
-                print(j, result_k_nearest_neighbor[0][j],
-                      result_k_nearest_neighbor[1][j],
-                      result_k_nearest_neighbor[2][j])
-                print("correct would be ", j, y_train[0][j], y_train[1][j], y_train[2][j])
+                count += 1
+        print("number of inconsistencies:", count, "in ", len(result_k_nearest_neighbor_hierarchy[0]), "predictions")
+        count = 0
         i -= 1
