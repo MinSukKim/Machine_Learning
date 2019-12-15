@@ -69,6 +69,7 @@ def k_nearest_neighbor_new_hierarchy(x_train, x_test, y_train, y_test, feature_n
                 #       x_train2[x].append(x_train[1][t][z])
                     x += 1
             x_train2 = np.reshape(x_train2,(x,22))
+            #todo get behind this breakpoint :p
             classifierG2.fit(x_train2, y_train2)
             y_predg[k] = classifierG2.predict(x_train[1][k])
 
